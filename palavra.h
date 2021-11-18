@@ -1,6 +1,8 @@
 #ifndef _PALAVRA_H_
 #define _PLAVRA_H_
 
+#include <string.h>
+
 typedef struct palavra
 {
     char letras[50];
@@ -8,6 +10,17 @@ typedef struct palavra
     int *linhas;
 }PALAVRA;
 
+PALAVRA* CriaNovaPlavra(char *palavra, int linha) {
+    PALAVRA *nova_palavra = (PALAVRA *)malloc(sizeof(PALAVRA));
+
+    strcpy(nova_palavra->letras, palavra);
+    nova_palavra->qtdOcorrencias = 1;
+
+    nova_palavra->linhas = malloc(sizeof(int));
+    nova_palavra->linhas[0] = linha;
+    
+    return nova_palavra;
+}
 
 
 
