@@ -1,5 +1,5 @@
 #ifndef _PALAVRA_H_
-#define _PLAVRA_H_
+#define _PALAVRA_H_
 
 #include <string.h>
 
@@ -22,12 +22,10 @@ PALAVRA* CriaNovaPlavra(char *palavra, int linha) {
     return nova_palavra;
 }
 
-
-
-
-
-
-
+void AdicionaLinha(PALAVRA *palavra, int linha) {
+    palavra->linhas = realloc(palavra->linhas, sizeof(palavra->qtdOcorrencias));
+    palavra->linhas[palavra->qtdOcorrencias - 1] = linha;
+}
 
 
 #endif

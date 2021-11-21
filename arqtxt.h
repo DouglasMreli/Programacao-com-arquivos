@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-FILE* AbreArquivo() {
+FILE* AbreArquivoTXT() {
     printf("Digite o nome do arquivo: \n");
     char nome[20];
     scanf("%s", nome);
