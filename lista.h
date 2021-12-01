@@ -25,15 +25,36 @@ int ExisteNaLista(LISTA *lista, char *palavra, int linha) {
     while(aux != lista) {
         
         if(strcmp(aux->palavra.letras, palavra) == 0){
-            printf("sim\n");
             aux->palavra.qtdOcorrencias++;
             AdicionaLinha(&aux->palavra, linha);
             return 1;
         }
         aux = aux->prox;
     }
-    printf("nao\n");
     return 0;
+}
+
+// Função que encontra a palavra e mostra ela na tela
+void BuscaPalavra(LISTA *lista, char *palavra) {
+    LISTA *aux = lista->prox;
+    
+    while(aux != lista) {
+        
+        if(strcmp(aux->palavra.letras, palavra) == 0){
+            printf("\n ---------- PALAVRA ENCONTRADA ---------- \n");
+            printf("Palavra: %s\n", aux->palavra.letras);
+            printf("Quantidade de Ocorrencias: %d\n", aux->palavra.qtdOcorrencias);
+            printf("Linhas em que aparece: ");
+            for(int i = 0; i < aux->palavra.qtdOcorrencias; i++) {
+                printf(" %d -", aux->palavra.linhas[i]);
+            }
+            printf("\n ----------------------------------------\n");
+            return;
+        }
+        aux = aux->prox;
+    }
+
+    printf(" ---------- PALAVRA NAO ENCONTRADA ---------- \n");
 }
 
 LISTA* InsereEmOrdemAlfabetica(LISTA *lista, PALAVRA *palavra) {
@@ -51,7 +72,6 @@ LISTA* InsereEmOrdemAlfabetica(LISTA *lista, PALAVRA *palavra) {
         int entrou = 0;
 
         while(aux != lista && !entrou) {
-            printf("COMPARACAO: %s com %s\n",aux->palavra.letras, palavra);
             if(strcmp(palavra->letras, aux->palavra.letras) < 0) {
                 nova->ant = aux->ant;
                 nova->prox = aux;
@@ -74,21 +94,52 @@ LISTA* InsereEmOrdemAlfabetica(LISTA *lista, PALAVRA *palavra) {
 }
 
 void ImprimeLista(LISTA *lista) {
-    LISTA *aux = lista->prox;
+    if(lista == NULL) {
+        printf("A lista está vazia.\n\n");
+    }else{
+        LISTA *aux = lista->prox;
 
-    printf("------------ LISTA ------------\n");
-    while(aux!= lista) {
-        printf("Palavra: %s\n", aux->palavra.letras);
-        printf("Quantidade de Ocorrencias: %d\n", aux->palavra.qtdOcorrencias);
-        printf("Linhas em que aparece: ");
-        for(int i = 0; i < aux->palavra.qtdOcorrencias; i++) {
-            printf(" %d -", aux->palavra.linhas[i]);
+        printf("------------ LISTA ------------\n");
+        while(aux!= lista) {
+            printf("Palavra: %s\n", aux->palavra.letras);
+            printf("Quantidade de Ocorrencias: %d\n", aux->palavra.qtdOcorrencias);
+            printf("Linhas em que aparece: ");
+            for(int i = 0; i < aux->palavra.qtdOcorrencias; i++) {
+                printf(" %d -", aux->palavra.linhas[i]);
+            }
+            printf("\n\n");
+            aux = aux->prox;
         }
-        printf("\n\n");
-        aux = aux->prox;
+        printf("-------------------------------\n");
     }
-    printf("-------------------------------\n");
 }
 
+int QtdPalavras(LISTA *lista) {
+
+    LISTA *aux = lista->prox;
+    int ct = 0;
+    while (aux != lista)
+    {
+        ct++;
+        aux = aux->prox;
+    }
+    
+    return ct;
+}
+
+LISTA* DestruirLista(LISTA *lista) {    
+    LISTA *aux = lista;
+    //free(&lista->ant->prox->palavra.linhas);
+    free(&lista->ant->prox->palavra);
+    lista->ant->prox = NULL;
+    while(aux != NULL) {
+        lista = lista->prox;
+        //free(&(lista->palavra.linhas));
+        free(&lista->palavra);
+        free(aux);
+        aux = lista;
+    }
+    return NULL;
+}
 
 #endif

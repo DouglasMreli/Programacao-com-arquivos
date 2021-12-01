@@ -22,6 +22,14 @@ PALAVRA* CriaNovaPlavra(char *palavra, int linha) {
     return nova_palavra;
 }
 
+void insereLinhas(PALAVRA *palavra, int *vetor, int qtdOcorrencias) {
+    palavra->qtdOcorrencias = qtdOcorrencias;
+    palavra->linhas = realloc(palavra->linhas, sizeof(palavra->qtdOcorrencias));
+    for(int i = 1; i < qtdOcorrencias; i++) {
+        palavra->linhas[i] = vetor[i];
+    }
+}
+
 void AdicionaLinha(PALAVRA *palavra, int linha) {
     palavra->linhas = realloc(palavra->linhas, sizeof(palavra->qtdOcorrencias));
     palavra->linhas[palavra->qtdOcorrencias - 1] = linha;
