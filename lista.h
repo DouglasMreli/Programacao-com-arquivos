@@ -129,13 +129,10 @@ int QtdPalavras(LISTA *lista) {
 
 LISTA* DestruirLista(LISTA *lista) {    
     LISTA *aux = lista;
-    //free(&lista->ant->prox->palavra.linhas);
-    free(&lista->ant->prox->palavra);
     lista->ant->prox = NULL;
     while(aux != NULL) {
         lista = lista->prox;
-        //free(&(lista->palavra.linhas));
-        free(&lista->palavra);
+        free(aux->palavra.linhas);
         free(aux);
         aux = lista;
     }

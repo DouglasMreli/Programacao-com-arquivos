@@ -30,6 +30,7 @@ void CriaIndice() {
             if(ExisteNaLista(lista_palavras, palavra, linha_atual) == 0) {
                 PALAVRA *nova_palavra = CriaNovaPlavra(palavra, linha_atual);
                 lista_palavras = InsereEmOrdemAlfabetica(lista_palavras, nova_palavra);
+                free(nova_palavra);
             }
 
             palavra = strtok(NULL, " ");
@@ -113,8 +114,10 @@ int main() {
             printf("\n ---------- INDICE CRIADO ----------\n");
         }else if(opcao == 2) {
             if(lista_palavras != NULL) {
+                printf("entrou\n");
                 lista_palavras = DestruirLista(lista_palavras);
             }
+            
             LerArquivoDat();
 
             char palavra[50];
@@ -125,6 +128,8 @@ int main() {
         }else if(opcao == 3) {
             lista_palavras = DestruirLista(lista_palavras);
             printf(" ---------- LISTA DESTRUIDA ----------\n");
+        }else if(opcao == 4) {
+            ImprimeLista(lista_palavras);
         }
 
         printf("\n");
@@ -134,4 +139,5 @@ int main() {
 
     printf(" ---------- SAIU DO PROGRAMA ----------\n");
     return 0;
+
 }
