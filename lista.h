@@ -1,6 +1,7 @@
 #ifndef _LISTA_H_
 #define _LISTA_H_
 
+#include <stdlib.h>
 #include <string.h>
 #include "palavra.h"
 
@@ -19,6 +20,7 @@ LISTA* CriaLista() {
 
 /* Se a palavra existir na lista, a função incrementa a qtdOcorrencias 
  da palavra, adiciona uma linha e retorna 1. Caso não exista, retorna 0 */
+ /*
 int ExisteNaLista(LISTA *lista, char *palavra, int linha) {
     LISTA *aux = lista->prox;
     
@@ -33,9 +35,9 @@ int ExisteNaLista(LISTA *lista, char *palavra, int linha) {
     }
     return 0;
 }
-
+*/
 // Função que encontra a palavra e mostra ela na tela
-void BuscaPalavra(LISTA *lista, char *palavra) {
+/*void BuscaPalavra(LISTA *lista, char *palavra) {
     LISTA *aux = lista->prox;
     
     while(aux != lista) {
@@ -137,6 +139,6 @@ LISTA* DestruirLista(LISTA *lista) {
         aux = lista;
     }
     return NULL;
-}
+}*/
 
 #endif

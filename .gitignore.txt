@@ -1,2 +1,5 @@
 main.exe
 palavras.txt
+indice.dat
+arquivo2.txt
+lista.h
