@@ -32,9 +32,22 @@ OCORRENCIA* CriaOcorrencia(int arquivo, int linha) {
     return novo;
 }
 
+OCORRENCIA* CriaOcorrenciaDoArqDat(int numArq, int qtdOcorrencia, int *linhas) {
+    OCORRENCIA *novo = (OCORRENCIA *) malloc(sizeof(OCORRENCIA));
+    novo->arquivo = numArq;
+    novo->qtdOcorrencias = qtdOcorrencia;
+    novo->linhas = (int*)malloc(sizeof(qtdOcorrencia));
+    for(int i = 0; i < qtdOcorrencia; i++) {
+        novo->linhas[i] = linhas[i];
+    }
+    novo->prox = NULL;
+
+    return novo;
+}
+
 OCORRENCIA* CriaListaOcorrencia() {
     OCORRENCIA *sentinela = (OCORRENCIA *) malloc(sizeof(OCORRENCIA));
-    sentinela->prox = sentinela;
+    sentinela->prox = NULL;
     return sentinela;
 }
 
@@ -72,6 +85,21 @@ void InsereOcorrenciaNoFim(OCORRENCIA* lista, int arquivo, int linha) {
     }
     
     aux->prox = novo;
+}
+
+void InsereOcorrenciaExistente(OCORRENCIA* lista, OCORRENCIA *novo) {
+    if(lista->prox != NULL) {
+        OCORRENCIA *aux = lista->prox;
+        while(aux->prox != NULL) {
+            aux = aux->prox;
+        }
+        aux->prox = novo;
+
+    }else {
+        lista->prox = novo;
+    }
+    
+    
 }
 
 OCORRENCIA* DestruirListaOcorrencia(OCORRENCIA* lista) {

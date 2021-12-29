@@ -25,7 +25,7 @@ FILE* AbreArquivoDat() {
     return arq;
 }
 
-INDICE* CriaListaIndice() {
+INDICE* CriaIndice() {
     INDICE* novo_indice = (INDICE*)malloc(sizeof(INDICE));
 
     novo_indice->qtdArquivos = 0;
@@ -53,7 +53,7 @@ void SalvarIndiceAtual(INDICE* lista) {
 
     int qtdPalavras = lista->qtdPalavras;
     PALAVRA *auxPlvr = lista->palavras;
-
+    
     fwrite(&qtdPalavras, sizeof(int), 1, arq);
     auxPlvr = auxPlvr->prox;
     while(auxPlvr != lista->palavras) {
@@ -79,10 +79,16 @@ void SalvarIndiceAtual(INDICE* lista) {
     fclose(arq);
 }
 
+void ImprimeIndice(INDICE *indice) {
+    printf(" Quantidade de arquivos: %d\n", indice->qtdArquivos);
+    printf(" ----- ARQUIVOS -----\n");
+    ImprimeListaArq(indice->arquivos);
+    ImprimeListaPalavra(indice->palavras);
+}
+
 INDICE* DestruirListaIndice(INDICE *indice) {
     
     indice->palavras = DestruirListaPalavras(indice->palavras);
-    printf("destruiu palavra\n");
     indice->arquivos = DestruirListaArquivos(indice->arquivos);
     free(indice);
         

@@ -63,9 +63,9 @@ FILE* AbreArquivoTXT(char *nome) {
 
 void ImprimeListaArq(ARQUIVO *lista) {
     ARQUIVO* aux = lista->prox;
-
+    
     while(aux != lista) {
-        printf("nome: %s \n", aux->nomeArquivo);
+        printf("Nome: %s \n", aux->nomeArquivo);
         aux = aux->prox;
     }
 }

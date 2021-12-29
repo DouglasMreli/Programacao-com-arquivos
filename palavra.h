@@ -31,15 +31,17 @@ PALAVRA* CriaNovaPlavra(char *palavra, int arquivo, int linha) {
     return nova_palavra;
 }
 
-/*
-void insereLinhas(PALAVRA *palavra, int *vetor, int qtdOcorrencias) {
-    palavra->qtdOcorrencias = qtdOcorrencias;
-    palavra->linhas = realloc(palavra->linhas, sizeof(palavra->qtdOcorrencias));
-    for(int i = 1; i < qtdOcorrencias; i++) {
-        palavra->linhas[i] = vetor[i];
-    }
+PALAVRA* CriaPalavraDoArqDat(char *palavra, int qtdArquivo) {
+    PALAVRA *nova_palavra = (PALAVRA *)malloc(sizeof(PALAVRA));
+    
+    strcpy(nova_palavra->letras, palavra);
+    nova_palavra->ocorrencias = CriaListaOcorrencia();
+    nova_palavra->qtdOcorrencias = qtdArquivo;
+    nova_palavra->prox = NULL;
+    nova_palavra->ant = NULL;
+
+    return nova_palavra;
 }
-*/
 
 int ExisteNaLista(PALAVRA *lista, char *palavra, int arquivo, int linha) {
     PALAVRA *aux = lista->prox;
@@ -50,6 +52,7 @@ int ExisteNaLista(PALAVRA *lista, char *palavra, int arquivo, int linha) {
             if(MesmoArquivo(aux->ocorrencias, arquivo)) {
                 AdicionaLinha(aux->ocorrencias, linha);
             }else{
+                aux->qtdOcorrencias++;
                 InsereOcorrenciaNoFim(aux->ocorrencias, arquivo, linha);
             }
             return 1;
@@ -93,6 +96,22 @@ void InsereEmOrdemAlfabetica(PALAVRA *lista, char *palavra, int arquivo, int lin
 
 }
 
+void InserePalavraNoFim(PALAVRA *lista, PALAVRA *novo) {
+    if(lista->prox != lista) {
+        PALAVRA *aux = lista->prox;
+        while(aux->prox != lista) {
+            aux = aux->prox;
+        }
+        aux->prox = novo;
+        novo->ant = aux;
+    }else{
+        lista->prox = novo;
+        novo->ant = lista;
+    }
+    novo->prox = lista;
+    
+}
+
 void ImprimeListaPalavra(PALAVRA *lista) {
     if(lista == NULL) {
         printf("A lista está vazia.\n\n");
@@ -102,13 +121,13 @@ void ImprimeListaPalavra(PALAVRA *lista) {
         printf("------------ LISTA ------------\n");
         while(aux!= lista) {
             printf("Palavra: %s\n",aux->letras);
-            printf("Quantidade de arquivos: %d\n", aux->qtdOcorrencias);
+            printf("Quantidade de arquivos em que aparece: %d\n", aux->qtdOcorrencias);
             printf(" ----- Ocorrencias -----\n");
             ImprimeListaOcorrencia(aux->ocorrencias);
-            printf("\n\n");
+            printf("\n-------------------------------\n");
             aux = aux->prox;
         }
-        printf("-------------------------------\n");
+        
     }
 }
 
