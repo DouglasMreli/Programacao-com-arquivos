@@ -192,11 +192,10 @@ void Busca_OU(PALAVRA* plvr1, PALAVRA* plvr2, OCORRENCIA* ocr1, OCORRENCIA* ocr2
                 igual = 1;
                 break;
             }
-            
         }
         if(igual == 0) {
-                printf("- %s \n", arqAux->nomeArquivo);
-            }
+            printf("- %s \n", arqAux->nomeArquivo);
+        }
         ocr2 = ocr2->prox;
     }
 
